@@ -515,4 +515,18 @@ font-family: 'Space Grotesk', sans-serif;
         min-width: 178svh;    /* 100svh * 16/9, guarantees width covers on tall screens */
         min-height: 100svh;
     }
+    
+    .title {
+        left: var(--ui-side);
+        right: var(--ui-side);
+        bottom: 6rem;
+
+        width: auto;
+
+        font-size: clamp(4rem, 18vw, 8rem);
+        line-height: 0.85;
+        letter-spacing: -0.05em;
+
+        z-index: 20;
+    }
 }
