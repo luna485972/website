@@ -339,13 +339,6 @@ font-family: 'Space Grotesk', sans-serif;
     }
 }
 
-@media screen and (max-width: 1200px) {
-     .title {
-
-        font-size: 10rem;
-    }
-}
-
 @media screen and (max-width: 900px) {
 
     /* ---------- Hero ---------- */
@@ -498,4 +491,28 @@ font-family: 'Space Grotesk', sans-serif;
         cursor: auto;
     }
     
+}
+@media screen and (max-width: 1400px) {
+     .title {
+        font-size: 10rem;
+    }
+
+    .wrapper iframe,
+    .wrapper video {
+        top: 50%;
+        left: 50%;
+        width: 100vw;
+        height: 56.25vw;      /* 16:9 aspect ratio */
+        min-width: 178svh;    /* 100svh * 16/9, guarantees width covers on tall screens */
+        min-height: 100svh;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .wrapper img {
+    position: relative;
+
+        align-self: center;
+        min-width: 178svh;    /* 100svh * 16/9, guarantees width covers on tall screens */
+        min-height: 100svh;
+    }
 }

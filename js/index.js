@@ -149,34 +149,45 @@ if (!prefersReducedMotion) {
     return window.scrollY < window.innerHeight*0.1;
   }
 
-  window.addEventListener('mousemove', (e) => {
-    if (!inTriggerZone()) {
-      lastX = null;
-      lastY = null;
-      return;
-    }
+function spawnAlongPath(x0, y0, x1, y1) {
+  const dist = Math.hypot(x1 - x0, y1 - y0);
+  const spacing = 24; // matches isTooClose's minDistance
+  const steps = Math.min(Math.max(1, Math.floor(dist / spacing)), 40);
 
-    const { clientX: x, clientY: y } = e;
+  for (let i = 0; i <= steps; i++) {
+    const t = steps === 0 ? 0 : i / steps;
+    spawnParticle(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
+  }
+}
 
-    if (lastX === null) {
-      spawnParticle(x, y);
-    } else {
-      const dist = Math.hypot(x - lastX, y - lastY);
-      const steps = Math.min(Math.ceil(dist / 10000), 2);
+function handlePointerActivity(e) {
+  if (!inTriggerZone()) {
+    lastX = null;
+    lastY = null;
+    return;
+  }
 
-      for (let i = 0; i < steps; i++) {
-        const t = i / steps;
+  const { clientX: x, clientY: y } = e;
 
-        spawnParticle(
-          lastX + (x - lastX) * t,
-          lastY + (y - lastY) * t
-        );
-      }
-    }
+  if (lastX === null) {
+    spawnParticle(x, y);
+  } else {
+    spawnAlongPath(lastX, lastY, x, y);
+  }
 
-    lastX = x;
-    lastY = y;
-  });
+  lastX = x;
+  lastY = y;
+}
+
+function resetTrail() {
+  lastX = null;
+  lastY = null;
+}
+
+window.addEventListener('pointerdown', handlePointerActivity, { passive: true });
+window.addEventListener('pointermove', handlePointerActivity, { passive: true });
+window.addEventListener('pointerup', resetTrail, { passive: true });
+window.addEventListener('pointercancel', resetTrail, { passive: true });
 
   function animateTrail(now) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
