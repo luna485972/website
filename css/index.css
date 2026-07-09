@@ -244,14 +244,6 @@ body {
 }
 
 /* ---------- Responsive ---------- */
-/* Below this width there's no room for a fixed vertical sidebar next to
-   a full gallery. The filters collapse into a horizontal, background-free
-   bar centered under the header — same floating-over-content treatment
-   the sidebar gets on desktop. The gallery's big frame-like padding
-   shrinks so the two-column grid starts right under that bar, with
-   nothing pushing it down further: the gallery is the first thing on
-   the page, so the page still opens blank (images fade in on scroll,
-   same as desktop) with the grid immediately at the top. */
 
 @media (max-width: 860px) {
   .gallery-controls {
@@ -273,7 +265,7 @@ body {
     justify-content: center;
 
     width: auto;
-    gap: 0.6rem 0rem;
+    gap: 0rem 0.6rem;
   }
 
   .gallery {
